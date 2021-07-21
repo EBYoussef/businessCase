@@ -1,0 +1,32 @@
+li {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+.fondbutton {
+    background-color: #6c757d;
+
+}
+
+.menuheader {
+    margin-left: 800px;
+}
+
+.fondbleubarre {
+    background-color: #21081a;
+    height: 15px;
+}
+
+
+.colorbarre  {
+    background-color: #21081a;
+}
+
+.titreannonce{
+    display: flex;
+    justify-content: center;
+}
