@@ -2,12 +2,18 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\AnnonceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\RangeFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
+
 
 /**
  * @ApiResource(
@@ -15,6 +21,16 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *          "groups"={"annonce:get"}
  *      }
  * )
+ * @ApiFilter(SearchFilter::class, properties={"referenceAnnonce"="partial","title"="partial","miseEnCirculation"="partial",
+ *     "modele.marque.name"="partial","modele.denomination"="partial","carburant.type"="partial","garage.name"="partial",
+ *     "garage.ville"="partial"})
+ *
+ * @ApiFilter(RangeFilter::class, properties={"kilometers", "miseEnCirculation", "price",})
+ *
+ * @ApiFilter(DateFilter::class, properties={"datePublication"})
+ *
+ * @ApiFilter(NumericFilter::class, properties={"miseEnCirculation"})
+ *
  * @ORM\Entity(repositoryClass=AnnonceRepository::class)
  */
 class Annonce

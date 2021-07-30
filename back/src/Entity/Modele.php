@@ -2,12 +2,16 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ModeleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
+
 
 /**
  * @ApiResource(
@@ -15,6 +19,12 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *          "groups"={"modele:get"}
  *      }
  * )
+ *
+ * @ApiFilter(SearchFilter::class, properties={"denomination"="partial","marque.name"="partial","annonces.title"="partial",
+ *     "annonces.referenceAnnonce"="partial"})
+ *
+ * @ApiFilter(DateFilter::class, properties={"annonces.publicationDate"})
+ *
  * @ORM\Entity(repositoryClass=ModeleRepository::class)
  */
 class Modele
