@@ -15,6 +15,30 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 
 /**
  * @ApiResource(
+ *
+ *     collectionOperations={
+ *          "get"={
+ *              "security"="is_granted('ROLE_ADMIN')"
+ *          },
+ *          "post"={
+ *              "security"="is_granted('ROLE_USER')"
+ *          }
+ *      },
+ *      itemOperations={
+ *          "get"={
+ *              "security"="is_granted('ROLE_ADMIN') or object.professionnel == user"
+ *          },
+ *          "put"={
+ *              "security"="is_granted('ROLE_ADMIN') or object.professionnel == user"
+ *          },
+ *          "delete"={
+ *              "security"="is_granted('ROLE_ADMIN') or object.professionnel == user"
+ *          },
+ *          "patch"={
+ *              "security"="is_granted('ROLE_ADMIN') or object.professionnel == user"
+ *          }
+ *      },
+ *
  *     normalizationContext={
  *          "groups"={"garage:get"}
  *      }
@@ -86,7 +110,7 @@ class Garage
      * @ORM\ManyToOne(targetEntity=Professionnel::class, inversedBy="garages")
      * @Groups({"garage:get"})
      */
-    private $professionnel;
+    public $professionnel;
 
     /**
      * @ORM\OneToMany(targetEntity=Annonce::class, mappedBy="garage")

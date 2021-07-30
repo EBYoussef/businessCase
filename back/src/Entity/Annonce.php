@@ -17,6 +17,25 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
 
 /**
  * @ApiResource(
+ *     collectionOperations={
+ *          "get",
+ *          "post"={
+ *              "security"="is_granted('ROLE_USER')"
+ *          }
+ *      },
+ *      itemOperations={
+ *          "get",
+ *          "put"={
+ *              "security"="is_granted('ROLE_ADMIN') or object.garage.professionnel == user"
+ *          },
+ *          "delete"={
+ *              "security"="is_granted('ROLE_ADMIN') or object.garage.professionnel == user"
+ *          },
+ *          "patch"={
+ *              "security"="is_granted('ROLE_ADMIN') or object.garage.professionnel == user"
+ *          }
+ *      },
+ *
  *     normalizationContext={
  *          "groups"={"annonce:get"}
  *      }
@@ -100,7 +119,7 @@ class Annonce
      * @ORM\ManyToOne(targetEntity=Garage::class, inversedBy="annonces")
      * @Groups({"annonce:get"})
      */
-    private $garage;
+    public $garage;
 
     /**
      * @ORM\OneToMany(targetEntity=Image::class, mappedBy="annonce")
