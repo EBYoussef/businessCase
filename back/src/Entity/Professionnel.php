@@ -21,7 +21,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  * )
  *
  * @ApiFilter(SearchFilter::class, properties={"firstName"="partial","name"="partial","email"="partial","garages.name"="partial"})
- * 
+ *
  * @ORM\Entity(repositoryClass=ProfessionnelRepository::class)
  */
 class Professionnel implements UserInterface, PasswordAuthenticatedUserInterface
