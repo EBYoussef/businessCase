@@ -7,9 +7,14 @@ use App\Repository\ModeleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     normalizationContext={
+ *          "groups"={"modele:get"}
+ *      }
+ * )
  * @ORM\Entity(repositoryClass=ModeleRepository::class)
  */
 class Modele
@@ -23,16 +28,19 @@ class Modele
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"annonce:get","marque:get","modele:get"})
      */
     private $denomination;
 
     /**
      * @ORM\ManyToOne(targetEntity=Marque::class, inversedBy="modeles")
+     * @Groups({"annonce:get","modele:get"})
      */
     private $marque;
 
     /**
      * @ORM\OneToMany(targetEntity=Annonce::class, mappedBy="modele")
+     * @Groups({"modele:get"})
      */
     private $annonces;
 

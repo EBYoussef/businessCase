@@ -2,14 +2,21 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ProfessionnelRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
+ * @ApiResource(
+ *     normalizationContext={
+ *          "groups"={"professionnel:get"}
+ *      }
+ * )
  * @ORM\Entity(repositoryClass=ProfessionnelRepository::class)
  */
 class Professionnel implements UserInterface, PasswordAuthenticatedUserInterface
@@ -39,31 +46,37 @@ class Professionnel implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"garage:get"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"garage:get","professionnel:get"})
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"garage:get","professionnel:get"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"garage:get","professionnel:get"})
      */
     private $numTel;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"garage:get","professionnel:get"})
      */
     private $numSiret;
 
     /**
      * @ORM\OneToMany(targetEntity=Garage::class, mappedBy="professionnel")
+     * @Groups({"professionnel:get"})
      */
     private $garages;
 

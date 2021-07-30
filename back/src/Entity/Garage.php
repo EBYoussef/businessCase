@@ -7,9 +7,14 @@ use App\Repository\GarageRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     normalizationContext={
+ *          "groups"={"garage:get"}
+ *      }
+ * )
  * @ORM\Entity(repositoryClass=GarageRepository::class)
  */
 class Garage
@@ -23,46 +28,55 @@ class Garage
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"annonce:get","garage:get","professionnel:get"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"annonce:get","garage:get","professionnel:get"})
      */
     private $numTel;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"garage:get"})
      */
     private $adresseLigne1;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"garage:get"})
      */
     private $adresseLigne2;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"garage:get"})
      */
     private $adresseLigne3;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"garage:get"})
      */
     private $ville;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"garage:get"})
      */
     private $codePostal;
 
     /**
      * @ORM\ManyToOne(targetEntity=Professionnel::class, inversedBy="garages")
+     * @Groups({"garage:get"})
      */
     private $professionnel;
 
     /**
      * @ORM\OneToMany(targetEntity=Annonce::class, mappedBy="garage")
+     * @Groups({"garage:get"})
      */
     private $annonces;
 

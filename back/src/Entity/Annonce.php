@@ -7,9 +7,14 @@ use App\Repository\AnnonceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     normalizationContext={
+ *          "groups"={"annonce:get"}
+ *      }
+ * )
  * @ORM\Entity(repositoryClass=AnnonceRepository::class)
  */
 class Annonce
@@ -23,61 +28,73 @@ class Annonce
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"annonce:get","garage:get","image:get","modele:get"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"annonce:get"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=500)
+     * @Groups({"annonce:get"})
      */
     private $descComplete;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *@Groups({"annonce:get","garage:get","image:get","modele:get"})
      */
     private $referenceAnnonce;
 
     /**
      * @ORM\Column(type="integer")
+     *@Groups({"annonce:get"})
      */
     private $miseEnCirculation;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"annonce:get"})
      */
     private $kilometers;
 
     /**
      * @ORM\Column(type="decimal", precision=10, scale=2)
+     * @Groups({"annonce:get"})
      */
     private $price;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"annonce:get","garage:get","image:get","modele:get"})
      */
     private $publicationDate;
 
     /**
      * @ORM\ManyToOne(targetEntity=Modele::class, inversedBy="annonces")
+     * @Groups({"annonce:get"})
      */
     private $modele;
 
     /**
      * @ORM\ManyToOne(targetEntity=Garage::class, inversedBy="annonces")
+     * @Groups({"annonce:get"})
      */
     private $garage;
 
     /**
      * @ORM\OneToMany(targetEntity=Image::class, mappedBy="annonce")
+     * @Groups({"annonce:get"})
      */
     private $images;
 
     /**
      * @ORM\ManyToOne(targetEntity=Carburant::class, inversedBy="annonces")
+     * @Groups({"annonce:get"})
      */
     private $carburant;
 
